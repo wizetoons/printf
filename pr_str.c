@@ -17,6 +17,6 @@ int pr_str(char *buf)
 		ptr = &buf[i];
 		write(1, ptr, 1);
 	}
-	bytes = i - 1;
+	bytes = i;
 	return (bytes);
 }
