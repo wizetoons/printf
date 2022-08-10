@@ -14,10 +14,11 @@ int pr_bin(unsigned int buf)
 	int remainder;
 	char *binary;
 	int bytes;
+	char o = '0';
 
 	if (num == 0)
 	{
-		ptr = &num;
+		ptr = &o;
 		write(1, ptr, 1);
 		return (1);
 	}

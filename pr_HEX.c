@@ -12,10 +12,11 @@ int pr_HEX(unsigned int buf)
 	unsigned int num = buf;
 	const void *ptr;
 	char *hexa;
+	char o = '0';
 
 	if (num == 0)
 	{
-		ptr = &num;
+		ptr = &o;
 		write(1, ptr, 1);
 		return (1);
 	}
@@ -47,4 +48,5 @@ int pr_HEX(unsigned int buf)
 			write(1, ptr, 1);
 			i--;
 		}
+		free(hexa);
 		return (bytes); }}

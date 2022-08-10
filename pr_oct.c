@@ -14,10 +14,11 @@ int pr_oct(unsigned int buf)
 	int remainder;
 	char *octal;
 	int bytes;
+	char o = '0';
 
 	if (buf == 0)
 	{
-		ptr = &num;
+		ptr = &o;
 		write(1, ptr, 1);
 		return (1);
 	}
@@ -46,6 +47,7 @@ int pr_oct(unsigned int buf)
 			write(1, ptr, 1);
 			i--;
 		}
+		free(octal);
 		return (bytes);
 	}
 }
