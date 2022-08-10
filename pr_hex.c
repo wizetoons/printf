@@ -8,7 +8,7 @@
  */
 int pr_hex(unsigned int buf)
 {
-	int i, remaindwr, bytes;
+	int i, remainder, bytes;
 	unsigned int num = buf;
 	const void *ptr;
 	char *hexa;

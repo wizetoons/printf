@@ -1,14 +1,15 @@
 #include "main.h"
 
 /**
- * pr_int - format for integer
- * @buf: integer to print
+ * pr_uint - format for unsigned integer
+ * @buf: unsigned integer to print
  *
  * Return: number of characters printed
  */
-int pr_int(int buf)
+int pr_uint(unsigned int buf)
 {
-	int i, len, mul, num, bytes;
+	int i, len, mul, bytes;
+	unsigned int num;
 	void *ptr;
 
 	num = buf;
@@ -16,13 +17,6 @@ int pr_int(int buf)
 	len = 1;
 	ptr = malloc(1);
 	bytes = 0;
-	if (num < 0)
-	{
-		*(char *)ptr = '-';
-		write(1, ptr, 1);
-		num = 0 - num;
-		bytes += 1;
-	}
 	while ((num / mul) > 9)
 	{
 		mul = mul * 10;

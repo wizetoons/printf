@@ -8,15 +8,15 @@
  */
 int pr_str(char *buf)
 {
-  int i;
-  int bytes;
-  const void *ptr;
+	int i;
+	int bytes;
+	const void *ptr;
 
-  for (i = 0; buf[i]; i++)
-    {
-      ptr = &buf[i];
-      write(1, ptr, 1);
-    }
-  bytes = i - 1;
-  return (bytes);
+	for (i = 0; buf[i]; i++)
+	{
+		ptr = &buf[i];
+		write(1, ptr, 1);
+	}
+	bytes = i - 1;
+	return (bytes);
 }
