@@ -2,32 +2,31 @@
 
 /**
  * pr_uint - format for unsigned integer
- * @buf: unsigned integer to print
+ * @ap: optional arguments list
  *
  * Return: number of characters printed
  */
-int pr_uint(unsigned int buf)
-{
-	int i, len, mul, bytes;
-	unsigned int num;
-	void *ptr;
+ int pr_uint(va_list ap)
+ {
+ 	int i, mul = 1, count = 0;
+ 	void *buf;
+ 	unsigned int arg = va_arg(ap, unsigned int);
 
-	num = buf;
-	mul = 1;
-	len = 1;
-	ptr = malloc(1);
-	bytes = 0;
-	while ((num / mul) > 9)
+	if (arg == '\0')
+		return (0);
+ 	buf = malloc(1);
+ 	if (buf == NULL)
+ 		return (0);
+	while ((arg / mul) > 9)
 	{
 		mul = mul * 10;
-		len++;
 	}
-	for (i = 0; i < len; i++)
+	for (i = 0; mul > 0; i++)
 	{
-		*(char *)ptr = '0' + ((num / mul) % 10);
-		write(1, ptr, 1);
+		*(char *)buf = '0' + ((arg / mul) % 10);
+		write(1, buf, 1);
 		mul = mul / 10;
+		count++;
 	}
-	bytes += len;
-	return (bytes);
+	return (count);
 }

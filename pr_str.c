@@ -2,21 +2,23 @@
 
 /**
  * pr_str - format for string
- * @buf: steing to print
+ * @ap: optional arguments list
  *
  * Return: number of characters printes
  */
-int pr_str(char *buf)
+int pr_str(va_list ap)
 {
-	int i;
-	int bytes;
-	const void *ptr;
+	int i, count = 0;
+	char *arg = va_arg(ap, char *);
+	void *buf;
 
-	for (i = 0; buf[i]; i++)
+	if (arg == NULL)
+		return (0);
+	for (i = 0; arg[i]; i++)
 	{
-		ptr = &buf[i];
-		write(1, ptr, 1);
+		buf = &arg[i];
+		write(1, buf, 1);
+		count++;
 	}
-	bytes = i;
-	return (bytes);
+	return (count);
 }

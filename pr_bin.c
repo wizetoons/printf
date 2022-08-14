@@ -2,45 +2,48 @@
 
 /**
  * pr_bin - format for binary
- * @buf: unsigned integer to print in binary
+ * @ap: optional arguments list
  *
  * Return: number of characters printed
  */
-int pr_bin(unsigned int buf)
+int pr_bin(va_list ap)
 {
-	int i;
-	unsigned int num = buf;
-	const void *ptr;
-	int remainder;
+	int i, count, remainder;
+	unsigned int arg = va_arg(ap, unsigned int);
+	int div = arg;
+	void *buf;
 	char *binary;
-	int bytes;
-	char o = '0';
+	char zero = '0';
 
-	if (num == 0)
+	if (arg == '\0')
+		return (0);
+	if (arg == 0)
 	{
-		ptr = &o;
-		write(1, ptr, 1);
+		buf = &zero;
+		write(1, buf, 1);
 		return (1);
 	}
 	else
 	{
-		for (i = 0; num > 0; i++)
-			num = num / 2;
+		for (i = 0; div > 0; i++)
+			div = div / 2;
 		binary = malloc(i);
-		num = buf;
-		for (i = 0; num > 0; i++)
+		if (binary == NULL)
+			return (0);
+		for (i = 0; arg > 0; i++)
 		{
-			remainder = num % 2;
+			remainder = arg % 2;
 			*(binary + i) = '0' + remainder;
-			num = num / 2;
+			arg = arg / 2;
 		}
-		bytes = i;
+		count = i;
 		while (i >= 0)
 		{
-			ptr = &binary[i];
-			write(1, ptr, 1);
+			buf = &binary[i];
+			write(1, buf, 1);
 			i--;
 		}
-		return (bytes);
+		free(buf);
+		return (count);
 	}
 }

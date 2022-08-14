@@ -2,52 +2,48 @@
 
 /**
  * pr_oct - format for octadecimal
- * @buf: unsigned integer to print in octal
+ * @ap: optional arguments list
  *
  * Return: number of characters printed
  */
-int pr_oct(unsigned int buf)
+int pr_oct(va_list ap)
 {
-	int i;
-	unsigned int num = buf;
-	const void *ptr;
-	int remainder;
+	int i, count, remainder;
+	unsigned int arg = va_arg(ap, unsigned int);
+	int div = arg;
+	void *buf;
 	char *octal;
-	int bytes;
-	char o = '0';
+	char zero = '0';
 
-	if (buf == 0)
+	if (arg == '\0')
+		return (0);
+	if (arg == 0)
 	{
-		ptr = &o;
-		write(1, ptr, 1);
+		buf = &zero;
+		write(1, buf, 1);
 		return (1);
 	}
 	else
 	{
-		i = 0;
-		while (num > 0)
-		{
-			num = num / 8;
-			i++;
-		}
+		for (i = 0; div > 0; i++)
+			div = div / 8;
 		octal = malloc(i);
-		i = 0;
-		num = buf;
-		while (num > 0)
+		if (octal == NULL)
+			return (0);
+		for (i = 0; arg > 0; i++)
 		{
-			remainder = num % 8;
+			remainder = arg % 8;
 			*(octal + i) = '0' + remainder;
-			num = num / 8;
-			i++;
+			arg = arg / 8;
 		}
-		bytes = i;
+		count = i;
 		while (i >= 0)
 		{
-			ptr = &octal[i];
-			write(1, ptr, 1);
+			buf = &octal[i];
+			write(1, buf, 1);
 			i--;
 		}
 		free(octal);
-		return (bytes);
+		return (count);
 	}
 }

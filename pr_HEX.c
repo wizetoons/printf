@@ -2,51 +2,46 @@
 
 /**
  * pr_HEX - format for hexadecimal
- * @buf: unsigned integer to print in hex
+ * @ap: optional arguments list
  *
  * Return: number of characters printed
  */
-int pr_HEX(unsigned int buf)
+int pr_HEX(va_list ap)
 {
-	int i, remainder, bytes;
-	unsigned int num = buf;
-	const void *ptr;
+	int i, count, remainder;
+	unsigned int arg = va_arg(ap, unsigned int);
+	int div = arg;
+	void *buf;
 	char *hexa;
-	char o = '0';
+	char zero = '0';
 
-	if (num == 0)
+	if (arg == '\0')
+		return (0);
+	if (arg == 0)
 	{
-		ptr = &o;
-		write(1, ptr, 1);
+		buf = &zero;
+		write(1, buf, 1);
 		return (1);
 	}
 	else
 	{
-		for (i = 0; num > 0; i++)
-			num = num / 10;
+		for (i = 0; div > 0; i++)
+			div = div / 16;
 		hexa = malloc(i);
-		num = buf;
-		i = 0;
-		while (num > 0)
+		for (i = 0; arg > 0; i++)
 		{
-			remainder = num % 16;
+			remainder = arg % 16;
 			if (remainder > 9)
-			{
 				*(hexa + i) = 'A' + (remainder % 10);
-			}
 			else
-			{
 				*(hexa + i) = '0' + remainder;
-			}
-			num = num / 16;
-			i++;
+			arg = arg / 16;
 		}
-		bytes = i;
-		while (i >= 0)
+		count = i;
+		for (; i >= 0; i--)
 		{
-			ptr = &hexa[i];
-			write(1, ptr, 1);
-			i--;
+			buf = &hexa[i];
+			write(1, buf, 1);
 		}
 		free(hexa);
-		return (bytes); }}
+		return (count); }}

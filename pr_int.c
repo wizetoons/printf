@@ -2,38 +2,38 @@
 
 /**
  * pr_int - format for integer
- * @buf: integer to print
+ * @ap: optional arguments list
  *
  * Return: number of characters printed
  */
-int pr_int(int buf)
+int pr_int(va_list ap)
 {
-	int i, len, mul, num, bytes;
-	void *ptr;
+	int i, mul = 1, count = 0;
+	void *buf;
+	int arg = va_arg(ap, int);
 
-	num = buf;
-	mul = 1;
-	len = 1;
-	ptr = malloc(1);
-	bytes = 0;
-	if (num < 0)
+	if (arg == '\0')
+		return (0);
+	buf = malloc(1);
+	if (buf == NULL)
+		return (0);
+	if (arg < 0)
 	{
-		*(char *)ptr = '-';
-		write(1, ptr, 1);
-		num = 0 - num;
-		bytes += 1;
+		*(char *)buf = '-';
+		write(1, buf, 1);
+		arg = 0 - arg;
+		count += 1;
 	}
-	while ((num / mul) > 9)
+	while ((arg / mul) > 9)
 	{
 		mul = mul * 10;
-		len++;
 	}
-	for (i = 0; i < len; i++)
+	for (i = 0; mul > 0; i++)
 	{
-		*(char *)ptr = '0' + ((num / mul) % 10);
-		write(1, ptr, 1);
+		*(char *)buf = '0' + ((arg / mul) % 10);
+		write(1, buf, 1);
 		mul = mul / 10;
+		count++;
 	}
-	bytes += len;
-	return (bytes);
+	return (count);
 }
