@@ -2,7 +2,7 @@
 
 /**
  * _printf - prints to stdout
- * @text: string to print
+ * @format: string to print
  *
  * Return: nunber of characters printed
  */

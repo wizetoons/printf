@@ -6,17 +6,17 @@
  *
  * Return: number of characters printed
  */
- int pr_uint(va_list ap)
- {
- 	int i, mul = 1, count = 0;
- 	void *buf;
- 	unsigned int arg = va_arg(ap, unsigned int);
+int pr_uint(va_list ap)
+{
+	int i, mul = 1, count = 0;
+	void *buf;
+	unsigned int arg = va_arg(ap, unsigned int);
 
 	if (arg == '\0')
 		return (0);
- 	buf = malloc(1);
- 	if (buf == NULL)
- 		return (0);
+	buf = malloc(1);
+	if (buf == NULL)
+		return (0);
 	while ((arg / mul) > 9)
 	{
 		mul = mul * 10;

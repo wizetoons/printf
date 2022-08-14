@@ -2,8 +2,8 @@
 
 /**
  * func_format - checks and gets formatting function
- * @ap - pointer to optional arguments
- * @id - format identifier
+ * @ap: optional arguments
+ * @id: format identifier
  *
  * Return: number of characters printed
 */

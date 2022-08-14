@@ -6,6 +6,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+/**
+ * struct fn - struct fo conversion functions and id
+ * @id: function identifier
+ * @f: function to call
+ */
 typedef struct fn
 {
 	char id;
